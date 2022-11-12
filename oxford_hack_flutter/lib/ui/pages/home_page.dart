@@ -10,17 +10,41 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Container(
         // height: double.infinity,
-        padding: const EdgeInsets.all(20),
         color: Colors.white,
         child: Column(
-          children: const [
-            EventWidget(
-              eventTitle: '',
-              startTime: '',
-              endTime: '',
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Events',
+                textScaleFactor: 3,
+              ),
             ),
-            CommentsWidget(comments: ['Hey I\'d love to join']),
-            CommentsWidget(comments: ['Me too pls!']),
+            SizedBox(height: 10),
+            Expanded(
+              child: ListView(
+                children: const [
+                  EventWidget(
+                    eventTitle: 'Going to the Shard',
+                    startTime: '',
+                    endTime: '',
+                  ),
+                  CommentsWidget(
+                    comments: [
+                      'Hey I\'d love to join',
+                      'Me too pls!',
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  EventWidget(
+                    eventTitle: 'Oxford Hackathon',
+                    startTime: '',
+                    endTime: '',
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

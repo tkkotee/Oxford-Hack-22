@@ -11,21 +11,38 @@ class CommentsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 30,
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      height: (30 * comments.length).toDouble(),
+      padding: const EdgeInsets.symmetric(horizontal: 40),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 10,
-            height: 15,
-            decoration: BoxDecoration(
-                border: Border(
-                    left: BorderSide(color: Colors.black),
-                    bottom: BorderSide(color: Colors.black))),
+            width: 2,
+            height: (30 * (comments.length - 1)).toDouble() + 16,
+            color: Colors.black,
           ),
-          SizedBox(width: 10),
-          Center(child: Text('commentText'))
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: comments
+                .map(
+                  (comment) => Container(
+                    height: 30,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 5,
+                          height: 2,
+                          color: Colors.black,
+                        ),
+                        const SizedBox(width: 10),
+                        Text(comment),
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
+          )
         ],
       ),
     );
