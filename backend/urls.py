@@ -1,4 +1,4 @@
-"""backend URL Configuration
+"""back URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -18,7 +18,7 @@ from django.urls import path
 
 from django.urls import include, path
 from rest_framework import routers
-from backend.backendapp import views
+from back.backendapp import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
