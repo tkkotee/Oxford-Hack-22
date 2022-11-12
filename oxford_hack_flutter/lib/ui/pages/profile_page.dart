@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             height: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),

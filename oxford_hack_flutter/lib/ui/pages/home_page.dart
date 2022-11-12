@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:oxford_hack_flutter/providers/event_provider.dart';
-import 'package:oxford_hack_flutter/ui/components/comment.dart';
 import 'package:oxford_hack_flutter/ui/components/event_widget.dart';
 import 'package:oxford_hack_flutter/ui/components/new_event_form.dart';
 import 'package:provider/provider.dart';
-
 import '../../django/rest.dart';
 
 class HomePage extends StatelessWidget {
@@ -39,60 +37,61 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Expanded(
-                child: FutureBuilder<List<Event>>(
-                    future: Provider.of<EventProvider>(context, listen: false)
-                        .getUsersEvents(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView(
+              FutureBuilder<List<Event>>(
+                  future: Provider.of<EventProvider>(context, listen: false)
+                      .getUsersEvents(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Expanded(
+                        child: ListView(
                           children: [
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             ...snapshot.data!
-                              .map((event) => Column(
-                                    children: [
-                                      EventWidget(
-                                        event: event,
-                                        joinedByList: const [
-                                          ['Harry', 'James'],
-                                          ['john', 'haine']
-                                        ],
-                                      ),
-                                      SizedBox(height: 10),
-                                    ],
-                                  ))
-                              .toList()],
-                        );
-                      } else {
-                        return Text('loading');
-                      }
+                                .map((event) => Column(
+                                      children: [
+                                        EventWidget(
+                                          event: event,
+                                          joinedByList: const [
+                                            ['Harry', 'James'],
+                                            ['john', 'haine']
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ))
+                                .toList()
+                          ],
+                        ),
+                      );
+                    } else {
+                      return const Center(child: CircularProgressIndicator());
+                    }
 
-                      // const [
-                      // EventWidget(
-                      //   event: ,
-                      //   joinedByList: [
-                      //     ['Harry', 'James'],
-                      //     ['john', 'haine']
-                      //   ],
-                      // ),
-                      // CommentsWidget(
-                      //   comments: [
-                      //     'Hey I\'d love to join',
-                      //     'Me too pls!',
-                      //   ],
-                      // ),
-                      // SizedBox(height: 10),
-                      // EventWidget(
-                      //   eventTitle: 'Oxford Hackathon',
-                      //   startTime: '',
-                      //   endTime: '',
-                      //   location: '',
-                      //   joinedByList: [],
-                      // ),
-                      // SizedBox(height: 20),
-                      // ],
-                    }),
-              ),
+                    // const [
+                    // EventWidget(
+                    //   event: ,
+                    //   joinedByList: [
+                    //     ['Harry', 'James'],
+                    //     ['john', 'haine']
+                    //   ],
+                    // ),
+                    // CommentsWidget(
+                    //   comments: [
+                    //     'Hey I\'d love to join',
+                    //     'Me too pls!',
+                    //   ],
+                    // ),
+                    // SizedBox(height: 10),
+                    // EventWidget(
+                    //   eventTitle: 'Oxford Hackathon',
+                    //   startTime: '',
+                    //   endTime: '',
+                    //   location: '',
+                    //   joinedByList: [],
+                    // ),
+                    // SizedBox(height: 20),
+                    // ],
+                  }),
             ],
           ),
         ),

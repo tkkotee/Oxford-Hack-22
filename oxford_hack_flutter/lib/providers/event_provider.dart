@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -23,9 +22,9 @@ class EventProvider extends ChangeNotifier {
     List<dynamic> responseResults = response['results'];
     print(responseResults);
     List<Event> events = [];
-    responseResults.forEach((json) {
+    for (dynamic json in responseResults) {
       events.add(Event.fromJson(json));
-    });
+    }
 
     return events;
   }
