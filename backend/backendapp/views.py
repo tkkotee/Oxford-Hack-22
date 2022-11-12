@@ -30,3 +30,13 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+class CustomEventViewSet(viewsets.ModelViewSet):
+    model = Event
+    serializer_class = EventSerializer
+
+    def get_queryset(self):
+
+
+
+        return Event.objects.filter(user_id=self.kwargs['user_id'])
