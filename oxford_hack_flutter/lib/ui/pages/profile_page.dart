@@ -5,8 +5,20 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.green,
+    return Column(
+      children: [
+        Stack(
+          children: [
+            Container(
+              height: 200,
+              color: Colors.green,
+            ),
+          ],
+        ),
+        Container(
+
+        )
+      ],
     );
   }
 }
