@@ -1,9 +1,10 @@
 from django.shortcuts import render
 
 from django.contrib.auth.models import User, Group
+from .models import Event
 from rest_framework import viewsets
 from rest_framework import permissions
-from backendapp.serializers import UserSerializer, GroupSerializer
+from backendapp.serializers import UserSerializer, GroupSerializer, EventSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -14,6 +15,13 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+class EventViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
