@@ -2,26 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:oxford_hack_flutter/ui/components/profile_icon.dart';
 
 class EventWidget extends StatelessWidget {
-  const EventWidget(
-      {super.key,
-      required this.eventTitle,
-      required this.startTime,
-      required this.endTime});
+  const EventWidget({
+    super.key,
+    required this.eventTitle,
+    required this.startTime,
+    required this.endTime,
+    required this.location,
+    this.poster = 'you',
+  });
 
   final String eventTitle;
   final String startTime;
   final String endTime;
+  final String location;
+  final String poster;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
-        height: 165,
+        height: 180,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.yellow,
+          color: poster == 'you'
+              ? Color.fromARGB(255, 185, 252, 107)
+              : Color.fromARGB(255, 107, 252, 250),
           boxShadow: const [
             BoxShadow(
               color: Colors.black26,
@@ -31,6 +38,7 @@ class EventWidget extends StatelessWidget {
           ],
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -45,6 +53,8 @@ class EventWidget extends StatelessWidget {
                 )
               ],
             ),
+            const SizedBox(height: 2),
+            Text('by $poster'),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -52,8 +62,9 @@ class EventWidget extends StatelessWidget {
                   width: 75,
                   height: 75,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      color: Colors.white),
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(width: 10),
                 const Text('123 Streetname\nLondon'),
