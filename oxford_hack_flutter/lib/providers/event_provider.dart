@@ -20,7 +20,6 @@ class EventProvider extends ChangeNotifier {
     ))
         .body);
     List<dynamic> responseResults = response['results'];
-    print(responseResults);
     List<Event> events = [];
     for (dynamic json in responseResults) {
       events.add(Event.fromJson(json));

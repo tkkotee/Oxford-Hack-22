@@ -104,31 +104,33 @@ class _ProfilePageState extends State<ProfilePage> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              width: double.infinity,
-              height: 300,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 5,
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'This Month',
-                    textScaleFactor: 1.5,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text("Here's your most visited places this month"),
-                  Expanded(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            width: double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 5,
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'This Month',
+                  textScaleFactor: 1.5,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                const Text("Here's your most visited places this month"),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
                     child: GoogleMap(
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
@@ -137,8 +139,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                   ),
-                ],
-              )),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

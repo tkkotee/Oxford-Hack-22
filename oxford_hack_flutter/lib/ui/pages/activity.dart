@@ -34,7 +34,6 @@ class _ActivityPageState extends State<ActivityPage> {
     ))
         .body);
     info = response.values.map((e) => e.toString()).toList();
-    print(response['results']);
     
 
     // // Get users bearer token
