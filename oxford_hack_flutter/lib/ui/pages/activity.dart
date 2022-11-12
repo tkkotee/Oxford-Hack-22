@@ -25,19 +25,21 @@ class _ActivityPageState extends State<ActivityPage> {
     info = [];
 
     Map<String, dynamic> response = json.decode(
-        (await client.get(Uri.parse('http://127.0.0.1:8000/users/'))).body);
+        (await client.get(Uri.parse('http://efda-192-76-8-95.ngrok.io/users/'))).body);
 
     info = response.values.map((e) => e.toString()).toList();
     print(info);
+    print(response);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(40),
-        color: Colors.red,
-        child: Column(
-          children: info.map((text) => Text(text)).toList(),
-        ));
+      padding: const EdgeInsets.all(40),
+      color: Colors.red,
+      child: Column(
+        children: info.map((text) => Text(text)).toList(),
+      ),
+    );
   }
 }
