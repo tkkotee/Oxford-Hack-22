@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oxford_hack_flutter/ui/components/profile_icon.dart';
+import 'package:oxford_hack_flutter/ui/components/joined_by.dart';
 
 class EventWidget extends StatelessWidget {
   const EventWidget({
@@ -9,6 +9,7 @@ class EventWidget extends StatelessWidget {
     required this.endTime,
     required this.location,
     this.poster = 'you',
+    required this.joinedByList,
   });
 
   final String eventTitle;
@@ -16,6 +17,7 @@ class EventWidget extends StatelessWidget {
   final String endTime;
   final String location;
   final String poster;
+  final List<List<String>> joinedByList;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,8 @@ class EventWidget extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: poster == 'you'
-              ? Color.fromARGB(255, 185, 252, 107)
-              : Color.fromARGB(255, 107, 252, 250),
+              ? const Color.fromARGB(255, 185, 252, 107)
+              : const Color.fromARGB(255, 107, 252, 250),
           boxShadow: const [
             BoxShadow(
               color: Colors.black26,
@@ -71,22 +73,7 @@ class EventWidget extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 10),
-            Row(
-              children: const [
-                Text('Joined by: '),
-                ProfileIcon(
-                  firstName: 'Tarun',
-                  surname: 'Koteeswaran',
-                  isSmall: true,
-                ),
-                SizedBox(width: 5),
-                ProfileIcon(
-                  firstName: 'Danny',
-                  surname: 'Ali',
-                  isSmall: true,
-                ),
-              ],
-            )
+            JoinedBy(friends: joinedByList, isOwnEvent: poster == 'you',)
           ],
         ),
       ),

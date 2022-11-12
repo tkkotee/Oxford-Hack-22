@@ -38,7 +38,7 @@ class _NewEventFormState extends State<NewEventForm> {
               fontWeight: FontWeight.w500,
             ),
             onChanged: (value) => setState(() {}),
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Event title',
               border: InputBorder.none,
             ),

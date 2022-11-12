@@ -44,6 +44,10 @@ class HomePage extends StatelessWidget {
                       endTime: '',
                       location: '',
                       poster: 'Sam Jamerson',
+                      joinedByList: [
+                        ['Harry', 'James'],
+                        ['john', 'haine']
+                      ],
                     ),
                     CommentsWidget(
                       comments: [
@@ -57,6 +61,7 @@ class HomePage extends StatelessWidget {
                       startTime: '',
                       endTime: '',
                       location: '',
+                      joinedByList: [],
                     ),
                     SizedBox(height: 20),
                   ],
