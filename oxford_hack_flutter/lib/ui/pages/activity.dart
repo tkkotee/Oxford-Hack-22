@@ -24,11 +24,31 @@ class _ActivityPageState extends State<ActivityPage> {
   _retrieveInfo() async {
     info = [];
 
-    Map<String, dynamic> response = json.decode(
-        (await client.get(Uri.parse('http://efda-192-76-8-95.ngrok.io/users/'))).body);
+    // Map<String, dynamic> response = json.decode((await client.get(
+    //   Uri.parse("http://efda-192-76-8-95.ngrok.io/users/"),
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //     'Accept': 'application/json',
+    //     'Authorization' : 'Token 080a54b93b8e53356d4c4a65092c81b0efd4fafa'
+    //   },
+    // ))
+    //     .body);
+
+    // info = response.values.map((e) => e.toString()).toList();
+    // print(info);
+    // print(response);
+
+     Map<String, dynamic> response = json.decode((await client.post(
+      Uri.parse("http://efda-192-76-8-95.ngrok.io/api-token-auth/"),
+      headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization' : base64.encode(utf8.encode('admin:admin'))
+      },
+    ))
+        .body);
 
     info = response.values.map((e) => e.toString()).toList();
-    print(info);
     print(response);
   }
 
