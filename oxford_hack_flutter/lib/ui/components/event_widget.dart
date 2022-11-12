@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:oxford_hack_flutter/ui/components/joined_by.dart';
+
+import '../../django/rest.dart';
 
 class EventWidget extends StatelessWidget {
   const EventWidget({
     super.key,
-    required this.eventTitle,
-    required this.startTime,
-    required this.endTime,
-    required this.location,
+    required this.event,
     this.poster = 'you',
     required this.joinedByList,
   });
 
-  final String eventTitle;
-  final String startTime;
-  final String endTime;
-  final String location;
+  final Event event;
   final String poster;
   final List<List<String>> joinedByList;
 
@@ -46,17 +43,17 @@ class EventWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  eventTitle,
+                  event.eventTitle,
                   textScaleFactor: 1.5,
                 ),
-                const Text(
-                  '15 Nov',
+                Text(
+                  '${event.startTime.day} ${DateFormat.MMM().format(event.startTime)}',
                   textScaleFactor: 1.5,
                 )
               ],
             ),
             const SizedBox(height: 2),
-            Text('by $poster'),
+            Text('by ${event.uid}'),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -69,11 +66,14 @@ class EventWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 10),
-                const Text('123 Streetname\nLondon'),
+                // Text('${event.location[0]} , ${event.location[1]}'),
               ],
             ),
             const SizedBox(height: 10),
-            JoinedBy(friends: joinedByList, isOwnEvent: poster == 'you',)
+            JoinedBy(
+              friends: joinedByList,
+              isOwnEvent: poster == 'you',
+            )
           ],
         ),
       ),

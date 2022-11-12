@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:oxford_hack_flutter/providers/event_provider.dart';
 import 'package:oxford_hack_flutter/ui/pages/activity.dart';
 import 'package:oxford_hack_flutter/ui/pages/home_page.dart';
 import 'package:oxford_hack_flutter/ui/pages/profile_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => EventProvider(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -16,9 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white
-      ),
+          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
       home: const MainView(),
     );
   }
