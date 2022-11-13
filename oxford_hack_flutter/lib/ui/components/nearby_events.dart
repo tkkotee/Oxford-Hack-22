@@ -12,46 +12,66 @@ class NearbyEvents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: (30 * nearbyEvents.length).toDouble(),
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 2,
-            height: (30 * (nearbyEvents.length - 1)).toDouble() + 16,
-            color: Colors.black,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: nearbyEvents
-                .map(
-                  (event) => SizedBox(
-                    height: 30,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 5,
-                          height: 2,
-                          color: Colors.black,
+    if (nearbyEvents.isNotEmpty) {
+      return Container(
+        height: (40 * nearbyEvents.length).toDouble(),
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: 2,
+              height: (40 * (nearbyEvents.length - 1)).toDouble() + 21,
+              color: Colors.black,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: nearbyEvents
+                    .map(
+                      (event) => SizedBox(
+                        height: 40,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: 5,
+                              height: 2,
+                              color: Colors.black,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.lightBlue,
+                                ),
+                                child: Row(
+                                  children: [
+                                    const SizedBox(width: 10),
+                                    Text(event.eventTitle),
+                                    // const Spacer(),
+                                    ProfileIcon(
+                                      firstName: event.username,
+                                      isSmall: true,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 10),
-                        Text(event.eventTitle),
-                        // const Spacer(),
-                        ProfileIcon(
-                          firstName: event.username,
-                          isSmall: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
-          )
-        ],
-      ),
-    );
+                      ),
+                    )
+                    .toList(),
+              ),
+            )
+          ],
+        ),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }

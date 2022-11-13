@@ -52,4 +52,32 @@ class EventProvider extends ChangeNotifier {
 
     return eventsWithNearbyEvents;
   }
+
+  Future<void> createEvents(
+      String title,
+      String startTime,
+      String endTime,
+      String username,
+      String longitude,
+      String latitude,
+      String eventId) async {
+    Map<String, dynamic> response = json.decode((await client.post(
+            Uri.parse("http://397f-192-76-8-95.ngrok.io/events/"),
+            headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json',
+          'Authorization': 'Token 20678eafd45daadc6ccb54cf04900d4ae4582b9e'
+        },
+            body: {
+          'title': title,
+          'start_time': startTime,
+          'end_time': endTime,
+          'username': username,
+          'longitude': longitude,
+          'latitude': latitude,
+          'event_id': eventId,
+        }))
+        .body);
+    notifyListeners();
+  }
 }

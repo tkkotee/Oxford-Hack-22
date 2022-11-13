@@ -81,6 +81,7 @@ class _EventWidgetState extends State<EventWidget> {
                     borderRadius: BorderRadius.circular(5),
                     child: GoogleMap(
                       myLocationButtonEnabled: false,
+                      zoomControlsEnabled: false,
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
                         target: center,
