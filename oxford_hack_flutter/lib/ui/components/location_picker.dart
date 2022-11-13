@@ -4,9 +4,8 @@ import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
 
 class LocationPicker extends StatelessWidget {
-  const LocationPicker({super.key, required this.controller, this.onChanged});
+  const LocationPicker({super.key, this.onChanged});
 
-  final TextEditingController controller;
   final VoidCallback? onChanged;
 
   Future<void> _handlePressButton(BuildContext context) async {
@@ -20,9 +19,13 @@ class LocationPicker extends StatelessWidget {
         decoration: const InputDecoration(
           hintText: 'Search',
         ),
+        overlayBorderRadius: BorderRadius.circular(5),
         components: [Component(Component.country, 'uk')]);
-
-    displayPrediction(p!);
+    if (p != null) {
+      displayPrediction(p);
+    } else {
+      return;
+    }
   }
 
   Future<List<double>> displayPrediction(Prediction p) async {
@@ -62,17 +65,22 @@ class LocationPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 6, 0, 6),
       width: double.infinity,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          const Icon(Icons.description_outlined),
+          const Padding(
+            padding:  EdgeInsets.fromLTRB(10,0,0,0),
+            child: Icon(Icons.location_on_outlined),
+          ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(21, 0, 10, 0),
-              child: GestureDetector(onTap: () => _handlePressButton(context)),
+              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: GestureDetector(onTap: () => _handlePressButton(context),
+              child: const Text('Where to...?',
+              textScaleFactor: 1.5,
+              style: TextStyle(fontWeight: FontWeight.bold)),),
             ),
           ),
         ],
