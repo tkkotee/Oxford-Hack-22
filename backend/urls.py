@@ -26,7 +26,6 @@ router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'events', views.EventViewSet)
-# router.register(r'cevents', views.CustomEventViewSet, basename="customevents")
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -35,5 +34,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
-    path('eventsbyuser/<int:user_id>', views.CustomEventViewSet.as_view({'get': 'list'})),
+    path('eventsbyuser/<int:username>', views.CustomEventViewSet.as_view({'get': 'list'})),
+    path('findlocalevents/<int:event_id>', views.LocalEventViewSet.as_view({'get': 'list'})),
 ]

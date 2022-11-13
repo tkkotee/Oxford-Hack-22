@@ -1,21 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-#class CustomUser(AbstractUser):
-    
- #   email = models.EmailField(unique=True)
-
 class Event(models.Model):
 
-    USERNAME_FIELD = 'user_id'
-    REQUIRED_FIELDS = ('title', 'start_time', 'end_time', 'user_id')
+    USERNAME_FIELD = 'event_id'
+    REQUIRED_FIELDS = ('event_id', 'title', 'start_time', 'end_time', 'username', 'longitude', 'latitude')
 
+    event_id = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    
+    longitude = models.CharField(max_length=200, default='')
+    latitude = models.CharField(max_length=200, default='')
+
+    # non-compulsory distance field - to be changed in views.py
+    dist = models.FloatField(max_length=200, blank=True, null=True)
+    is_in_range = models.BooleanField(default=False)
+
     ### get from CustomUser user_id
-    user_id = models.CharField(max_length=200)
+    username = models.CharField(max_length=200, default='')
 
     @property
     def is_anonymous(self):

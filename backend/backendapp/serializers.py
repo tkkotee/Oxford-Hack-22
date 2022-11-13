@@ -16,7 +16,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Event
-        fields = ['title', 'start_time', 'end_time', 'user_id']
+        fields = ['event_id', 'title', 'start_time', 'end_time', 'username', 'longitude', 'latitude']
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
