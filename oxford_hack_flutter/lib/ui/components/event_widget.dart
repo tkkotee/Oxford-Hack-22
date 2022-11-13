@@ -22,10 +22,7 @@ class EventWidget extends StatefulWidget {
 }
 
 class _EventWidgetState extends State<EventWidget> {
-
   late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(45.521563, -122.677433);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -33,6 +30,7 @@ class _EventWidgetState extends State<EventWidget> {
 
   @override
   Widget build(BuildContext context) {
+    LatLng center = LatLng(widget.event.location[0], widget.event.location[1]);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
@@ -68,7 +66,7 @@ class _EventWidgetState extends State<EventWidget> {
               ],
             ),
             const SizedBox(height: 2),
-            Text('by ${widget.event.uid}'),
+            Text('by ${widget.event.username}'),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -85,7 +83,7 @@ class _EventWidgetState extends State<EventWidget> {
                       myLocationButtonEnabled: false,
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
-                        target: _center,
+                        target: center,
                         zoom: 15.0,
                       ),
                     ),

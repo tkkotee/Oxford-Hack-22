@@ -1,10 +1,7 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
-import '../django/rest.dart';
 
 class User {
   String username;
@@ -23,7 +20,7 @@ class LoginProvider extends ChangeNotifier {
 
   postUserLogin(String lensHandle, String password) async {
     final response = await client.post(
-      Uri.parse("http://afb7-192-76-8-95.ngrok.io/api-token-auth/"),
+      Uri.parse("http://397f-192-76-8-95.ngrok.io/api-token-auth/"),
       body: {
         'username': lensHandle,
         'password': password,
@@ -31,9 +28,10 @@ class LoginProvider extends ChangeNotifier {
       headers: {
         'Content-type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json',
-        'Authorization': base64.encode(utf8.encode('admin:admin')),
+        // 'Authorization': base64.encode(utf8.encode('admin:admin')),
       },
     );
+    // print(response);
     Map<String, dynamic> decodedResponse = json.decode(response.body);
     if (response.statusCode == 200) {
       user = User(

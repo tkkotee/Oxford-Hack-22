@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:oxford_hack_flutter/providers/event_provider.dart';
+import 'package:oxford_hack_flutter/providers/login_provider.dart';
 import 'package:oxford_hack_flutter/ui/components/event_widget.dart';
+import 'package:oxford_hack_flutter/ui/components/nearby_events.dart';
 import 'package:oxford_hack_flutter/ui/components/new_event_form.dart';
 import 'package:provider/provider.dart';
 import '../../django/rest.dart';
@@ -37,9 +39,9 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              FutureBuilder<List<Event>>(
+              FutureBuilder<List<List<Event>>>(
                   future: Provider.of<EventProvider>(context, listen: false)
-                      .getUsersEvents(),
+                      .getUsersEvents(Provider.of<LoginProvider>(context, listen: false).user!),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Expanded(
@@ -47,15 +49,16 @@ class HomePage extends StatelessWidget {
                           children: [
                             const SizedBox(height: 10),
                             ...snapshot.data!
-                                .map((event) => Column(
+                                .map((listOfEvents) => Column(
                                       children: [
                                         EventWidget(
-                                          event: event,
+                                          event: listOfEvents[0],
                                           joinedByList: const [
                                             ['Harry', 'James'],
                                             ['john', 'haine']
                                           ],
                                         ),
+                                        NearbyEvents(nearbyEvents: listOfEvents.sublist(1)),
                                         const SizedBox(height: 10),
                                       ],
                                     ))

@@ -35,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
               color: Colors.green,
             ),
             Positioned(
-              left: 50,
+              left: 30,
               top: 100,
               child: Container(
                 height: 100,
@@ -47,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             const Positioned(
-              left: 150,
+              left: 140,
               top: 150,
               child: Padding(
                 padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
