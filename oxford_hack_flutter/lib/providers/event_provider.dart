@@ -9,9 +9,9 @@ import '../django/rest.dart';
 class EventProvider extends ChangeNotifier {
   Client client = http.Client();
 
-  Future<List<Event>> getUsersEvents() async {
+  Future<List<Event>> getUsersEvents(String username) async {
     var response = json.decode((await client.get(
-      Uri.parse("http://afb7-192-76-8-95.ngrok.io/events/"),
+      Uri.parse("http://397f-192-76-8-95.ngrok.io/eventsbyuser/$username"),
       headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json',
