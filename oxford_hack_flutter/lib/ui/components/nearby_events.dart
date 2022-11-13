@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oxford_hack_flutter/ui/components/nested_event_widget.dart';
 import 'package:oxford_hack_flutter/ui/components/profile_icon.dart';
 import '../../django/rest.dart';
 
@@ -41,23 +42,9 @@ class NearbyEvents extends StatelessWidget {
                               color: Colors.black,
                             ),
                             Expanded(
-                              child: Container(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.lightBlue,
-                                ),
-                                child: Row(
-                                  children: [
-                                    const SizedBox(width: 10),
-                                    Text(event.eventTitle),
-                                    // const Spacer(),
-                                    ProfileIcon(
-                                      firstName: event.username,
-                                      isSmall: true,
-                                    ),
-                                  ],
-                                ),
+                              child: NestedEventWidget(
+                                eventTitle: event.eventTitle,
+                                username: event.username,
                               ),
                             ),
                           ],

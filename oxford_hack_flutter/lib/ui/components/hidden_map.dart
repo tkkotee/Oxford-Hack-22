@@ -19,16 +19,17 @@ class _HiddenMapState extends State<HiddenMap> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 1000,
-      height: 1000,
-      color: Colors.black,
-      child: Center(
-        child: SizedBox(
-          width: 200,
-          height: 200,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(100),
+    return Stack(
+      children: [
+        
+        Container(
+          width: 1000,
+          height: 1000,
+          child: ColorFiltered(
+            colorFilter: ColorFilter.mode(
+              Color.fromARGB(200, 158, 158, 158),
+              BlendMode.difference,
+            ),
             child: GoogleMap(
               onMapCreated: _onMapCreated,
               initialCameraPosition: CameraPosition(
@@ -46,7 +47,35 @@ class _HiddenMapState extends State<HiddenMap> {
             ),
           ),
         ),
-      ),
+        Center(
+          child: Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: Colors.transparent,
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                initialCameraPosition: CameraPosition(
+                  target: _center,
+                  zoom: 11.0,
+                ),
+                rotateGesturesEnabled: false,
+                scrollGesturesEnabled: false,
+                zoomControlsEnabled: false,
+                zoomGesturesEnabled: false,
+                liteModeEnabled: false,
+                tiltGesturesEnabled: false,
+                myLocationEnabled: false,
+                myLocationButtonEnabled: false,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
