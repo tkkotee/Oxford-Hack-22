@@ -20,7 +20,7 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) {
     DateTime parsedStartTime = DateTime.parse(json['start_time']);
     DateTime parsedEndTime = DateTime.parse(json['end_time']);
-    List<dynamic> dynamicLocation = [json['longitude'], json['latidude']];
+    List<dynamic> dynamicLocation = [json['longitude'], json['latitude']];
 
     return Event(
       eventTitle: json['title'] as String,

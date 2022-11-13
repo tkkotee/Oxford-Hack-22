@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 10),
               FutureBuilder<List<Event>>(
                   future: Provider.of<EventProvider>(context, listen: false)
-                      .getUsersEvents(Provider.of<LoginProvider>(context, listen: false).user!.username),
+                      .getUsersEvents(Provider.of<LoginProvider>(context, listen: false).user!),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Expanded(
