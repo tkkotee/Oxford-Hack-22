@@ -20,7 +20,7 @@ class LoginProvider extends ChangeNotifier {
 
   postUserLogin(String lensHandle, String password) async {
     final response = await client.post(
-      Uri.parse("http://397f-192-76-8-95.ngrok.io/api-token-auth/"),
+      Uri.parse("http://397f-192-76-8-95ad.ngrok.io/api-token-auth/"),
       body: {
         'username': lensHandle,
         'password': password,
