@@ -20,6 +20,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 from rest_framework.authtoken.views import obtain_auth_token  # <-- Here
+from backendapp.views import CustomAuthToken
 from backendapp import views
 
 router = routers.DefaultRouter()
@@ -33,7 +34,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),  # <-- And here
-    path('eventsbyuser/<int:username>', views.CustomEventViewSet.as_view({'get': 'list'})),
+    path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'),  # <-- And here
+    path('eventsbyuser/<username>', views.CustomEventViewSet.as_view({'get': 'list'})),
     path('findlocalevents/<int:event_id>', views.LocalEventViewSet.as_view({'get': 'list'})),
 ]
