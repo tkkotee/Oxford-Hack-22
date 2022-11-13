@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,56 +60,85 @@ class ProfilePage extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             height: 100,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: const LinearGradient(
-                colors: [
-                  Color.fromARGB(255, 219, 219, 219),
-                  Color.fromARGB(255, 211, 211, 211)
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight
+              border: Border(
+                top: BorderSide(color: Colors.black.withOpacity(0.5)),
+                bottom: BorderSide(color: Colors.black.withOpacity(0.5)),
               ),
-               boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  blurRadius: 10,
-                  spreadRadius: 0,
-                ),
-              ],
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0,0,0,10),
-                      child: Text('Followers'),
-                    ),
-                    Text('52', textScaleFactor: 2,)
+                    Text('Followers'),
+                    Text(
+                      '52',
+                      textScaleFactor: 2,
+                    )
                   ],
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0,0,0,10),
-                      child: Text('Following'),
-                    ),
+                    Text('Following'),
                     Text('39', textScaleFactor: 2)
                   ],
                 ),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0,0,0,10),
-                      child: Text('Events'),
-                    ),
+                    Text('Events'),
                     Text('21', textScaleFactor: 2)
                   ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 20),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+            width: double.infinity,
+            height: 300,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black26,
+                  blurRadius: 5,
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'This Month',
+                  textScaleFactor: 1.5,
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                const Text("Here's your most visited places this month"),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: GoogleMap(
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                        target: _center,
+                        zoom: 11.0,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

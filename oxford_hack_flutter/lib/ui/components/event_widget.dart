@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:oxford_hack_flutter/ui/components/joined_by.dart';
 
-class EventWidget extends StatelessWidget {
+import '../../django/rest.dart';
+
+class EventWidget extends StatefulWidget {
   const EventWidget({
     super.key,
-    required this.eventTitle,
-    required this.startTime,
-    required this.endTime,
-    required this.location,
+    required this.event,
     this.poster = 'you',
     required this.joinedByList,
   });
 
-  final String eventTitle;
-  final String startTime;
-  final String endTime;
-  final String location;
+  final Event event;
   final String poster;
   final List<List<String>> joinedByList;
+
+  @override
+  State<EventWidget> createState() => _EventWidgetState();
+}
+
+class _EventWidgetState extends State<EventWidget> {
+
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +40,7 @@ class EventWidget extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: poster == 'you'
+          color: widget.poster == 'you'
               ? const Color.fromARGB(255, 185, 252, 107)
               : const Color.fromARGB(255, 107, 252, 250),
           boxShadow: const [
@@ -46,17 +58,17 @@ class EventWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  eventTitle,
+                  widget.event.eventTitle,
                   textScaleFactor: 1.5,
                 ),
-                const Text(
-                  '15 Nov',
+                Text(
+                  '${widget.event.startTime.day} ${DateFormat.MMM().format(widget.event.startTime)}',
                   textScaleFactor: 1.5,
                 )
               ],
             ),
             const SizedBox(height: 2),
-            Text('by $poster'),
+            Text('by ${widget.event.uid}'),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -67,13 +79,27 @@ class EventWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.white,
                   ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(5),
+                    child: GoogleMap(
+                      myLocationButtonEnabled: false,
+                      onMapCreated: _onMapCreated,
+                      initialCameraPosition: CameraPosition(
+                        target: _center,
+                        zoom: 15.0,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(width: 10),
-                const Text('123 Streetname\nLondon'),
+                // Text('${event.location[0]} , ${event.location[1]}'),
               ],
             ),
             const SizedBox(height: 10),
-            JoinedBy(friends: joinedByList, isOwnEvent: poster == 'you',)
+            JoinedBy(
+              friends: widget.joinedByList,
+              isOwnEvent: widget.poster == 'you',
+            )
           ],
         ),
       ),

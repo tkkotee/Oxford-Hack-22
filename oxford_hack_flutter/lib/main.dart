@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:oxford_hack_flutter/providers/event_provider.dart';
+import 'package:oxford_hack_flutter/providers/login_provider.dart';
 import 'package:oxford_hack_flutter/ui/pages/activity.dart';
 import 'package:oxford_hack_flutter/ui/pages/home_page.dart';
+import 'package:oxford_hack_flutter/ui/pages/login_page.dart';
 import 'package:oxford_hack_flutter/ui/pages/profile_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => EventProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => LoginProvider(),
+      ),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  final bool userLoggedIn = false;
 
   // This widget is the root of your application.
   @override
@@ -16,10 +32,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Colors.white
-      ),
-      home: const MainView(),
+          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.white),
+      home: Provider.of<LoginProvider>(context).user != null  ? const MainView() : const LoginPage(),
     );
   }
 }

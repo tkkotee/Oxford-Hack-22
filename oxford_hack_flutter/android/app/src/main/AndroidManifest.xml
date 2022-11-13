@@ -8,6 +8,8 @@
         android:label="oxford_hack_flutter"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBJyUVUFO1xsMDktN2RvfHqRnFs_G7u6Wk"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
