@@ -37,4 +37,5 @@ urlpatterns = [
     path('api-token-auth/', CustomAuthToken.as_view(), name='api_token_auth'),  # <-- And here
     path('eventsbyuser/<username>', views.CustomEventViewSet.as_view({'get': 'list'})),
     path('findlocalevents/<int:event_id>', views.LocalEventViewSet.as_view({'get': 'list'})),
+    path('followers/<username>', views.FollowersViewSet.as_view({'get': 'list'})),
 ]

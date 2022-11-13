@@ -102,6 +102,56 @@ class LocalEventViewSet(viewsets.ModelViewSet):
 
         return Event.objects.filter(is_in_range = True)
 
+class FollowersViewSet(viewsets.ModelViewSet):
+    model = User
+    serializer_class = UserSerializer
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        this_user = User.objects.get(username=username)
+        idquery = '''query Profile {
+                    profile(request: {handle: "''' + str(this_user.username) +'''"}) {
+                    id
+                name
+            }
+        }'''
+        url = 'https://api.lens.dev'
+        p = requests.post(url, json={'query': idquery})
+        profileId = str(json.loads(p.text)['data']['profile']['id'])
+        # profileId = "0x01"
+        query = '''query Followers {
+          followers(request: { 
+                        profileId: "'''+ profileId +'''",
+                     }) {
+               items {
+              wallet {
+                defaultProfile {
+                  id
+                  name
+                  handle
+                  ownedBy
+                }
+              }
+            }
+          }
+        }'''
+        r = requests.post(url, json={'query': query})
+        result = json.loads(r.text)
+        print(result)
+        following = [i['wallet']['defaultProfile']['handle'] for i in result['data']['followers']['items']]
+        print(following)
+        all_users = User.objects.all()
+        for user in all_users.iterator():
+            if user.username in following:
+                # event.is_in_range = True
+                setattr(user, 'email', 'return@return.com')
+                user.save(update_fields=['email'])
+
+        setattr(this_user, 'email', 'no@no.com')
+        this_user.save(update_fields=['email'])
+        returnemail = 'return@return.com'
+        return User.objects.filter(email=returnemail)
+
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
