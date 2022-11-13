@@ -41,9 +41,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 height: 100,
                 width: 100,
                 decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.amber,
-                    border: Border.all(color: Colors.white, width: 5)),
+                  shape: BoxShape.circle,
+                  color: Colors.amber,
+                  border: Border.all(color: Colors.white, width: 5),
+                ),
               ),
             ),
             const Positioned(
@@ -86,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: const [
                     Text('Following'),
-                    Text('39', textScaleFactor: 2)
+                    Text('39', textScaleFactor: 2),
                   ],
                 ),
                 Column(
