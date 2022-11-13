@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:oxford_hack_flutter/ui/components/custom_date_picker.dart';
+import 'package:oxford_hack_flutter/ui/components/location_picker.dart';
 
 class NewEventForm extends StatefulWidget {
   const NewEventForm({super.key});
@@ -10,6 +12,7 @@ class NewEventForm extends StatefulWidget {
 class _NewEventFormState extends State<NewEventForm> {
 
     final titleController = TextEditingController();
+    final locationTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +33,34 @@ class _NewEventFormState extends State<NewEventForm> {
       ),
       child: Column(
         children: [
-          TextField(
-            autofocus: true,
-            controller: titleController,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w500,
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10,0,0,0),
+            child: TextField(
+              autofocus: true,
+              controller: titleController,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w500,
+              ),
+              onChanged: (value) => setState(() {}),
+              decoration: const InputDecoration(
+                hintText: 'Event title',
+                border: InputBorder.none,
+              ),
             ),
-            onChanged: (value) => setState(() {}),
-            decoration: const InputDecoration(
-              hintText: 'Event title',
-              border: InputBorder.none,
-            ),
+          ),
+          const CustomDatePickerDialog(isEnd: false),
+          const CustomDatePickerDialog(
+            isEnd: true,
+          ),
+          LocationPicker(
+            controller: locationTextController,
+
+          ),
+          // const AllDayToggle(),
+          // const RepetitionRadioMenuDialog(),
+          const SizedBox(
+            height: 20,
           ),
         ],
       ),

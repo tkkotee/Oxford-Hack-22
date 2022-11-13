@@ -11,7 +11,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late GoogleMapController mapController;
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  final LatLng _center = const LatLng(51.75, -1.25);
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;

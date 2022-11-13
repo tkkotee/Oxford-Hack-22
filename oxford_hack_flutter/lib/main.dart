@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:oxford_hack_flutter/providers/event_provider.dart';
 import 'package:oxford_hack_flutter/providers/login_provider.dart';
+import 'package:oxford_hack_flutter/providers/form_and_radio_menu_provider.dart';
 import 'package:oxford_hack_flutter/ui/pages/activity.dart';
 import 'package:oxford_hack_flutter/ui/pages/home_page.dart';
 import 'package:oxford_hack_flutter/ui/pages/login_page.dart';
@@ -15,6 +16,9 @@ void main() {
       ),
       ChangeNotifierProvider(
         create: (_) => LoginProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => FormRadioMenuSelector(),
       ),
     ],
     child: const MyApp(),
